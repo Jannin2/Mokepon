@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Cherry+Cream+Soda&family=Happy+Monkey&family=Shrikhand&family=Vesper+Libre:wght@400;500;700;900&display=swap');
+
+body {
+    font-family: "Shrikhand", serif;
+    font-weight: 300;
+    font-style: normal;
+    background-color: #FFF3C7;
+}
+
+#seleccionar-mascota,
+#ver-mapa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.titulo {
+    color: #5F5D9C;
+    font-size: 60px;
+}
+
+.subtitulo {
+    font-weight: 100;
+    font-size: 30px;
+}
+
+.tarjetas,
+.tarjetas-ataques {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tarjeta-de-mokepon {
+    width: 200px;
+    height: 100px;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #E1AFD1;
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #a03c94;
+    text-align: center;
+}
+
+.tarjeta-de-mokepon img {
+    width: 80px;
+    height: auto;
+    object-fit: contain;
+}
+
+input {
+    display: none;
+}
+
+input:checked+label {
+    background-color: #FFF7FC;
+}
+
+#boton-mascota,
+#ver-mapa button {
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    font-family: "Happy Monkey", system-ui;
+    font-weight: 400;
+    margin-top: 30px;
+    font-style: normal;
+    background: #fbe5f4;
+    border: 2px solid #a03c94;
+    color: black;
+}
+
+.boton-ataque {
+    background: #c9c7ef;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border-color: transparent;
+    width: 80px;
+    color: black;
+    font-family: "Happy Monkey", system-ui;
+}
+
+#mensajes {
+    width: 280px;
+    background: #93bcf4;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#boton-reiniciar {
+    border: none;
+    color: #E1AFD1;
+    font-family: "Shrikhand", serif;
+}
+
+.ataques {
+    display: grid;
+    grid-template-columns: 100px 100px;
+}
+
+#vidas-jugador,
+#vidas-enemigo {
+    font-size: 40px;
+    margin-bottom: 0;
+}
+
+.ataques-jugador,
+.ataques-enemigo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (max-width: 560px) {
+
+    .tarjetas,
+    .tarjetas-ataques {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 300px) {
+    #ver-mapa div {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+}
+
+/* Estilos generales para la sección de ataques */
+#seleccionar-ataque {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Contenedor de los botones de ataque */
+#contenedorAtaques {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 600px;
+    /* Limitar el ancho máximo para evitar que se desborde */
+    margin: 0 auto;
+    /* Centrar el contenedor */
+}
+
+/* Estilos para los botones de ataque */
+.boton-de-ataque {
+    background: #c9c7ef;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border: 2px solid #a03c94;
+    width: 100px;
+    color: black;
+    font-family: "Happy Monkey", system-ui;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.boton-de-ataque:hover {
+    background-color: #a03c94;
+    color: white;
+}
+
+/* Estilos para los mensajes y el botón de reiniciar */
+#mensajes {
+    width: 100%;
+    max-width: 600px;
+    /* Limitar el ancho máximo */
+    background: #93bcf4;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#boton-reiniciar {
+    border: none;
+    color: #E1AFD1;
+    font-family: "Shrikhand", serif;
+    background-color: transparent;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#boton-reiniciar:hover {
+    color: #a03c94;
+}
+
+/* Estilos para la sección de ataques (jugador y enemigo) */
+.ataques {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 600px;
+    /* Limitar el ancho máximo */
+    margin: 20px auto;
+    /* Centrar el contenedor */
+}
+
+.ataques-jugador,
+.ataques-enemigo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fbe5f4;
+    padding: 15px;
+    border-radius: 20px;
+    border: 2px solid #a03c94;
+}
+
+#vidas-jugador,
+#vidas-enemigo {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #5F5D9C;
+}
+
+/* Ajustes para pantallas más grandes */
+@media (min-width: 768px) {
+    #seleccionar-ataque {
+        padding: 40px;
+    }
+
+    .boton-de-ataque {
+        width: 120px;
+        padding: 20px;
+        font-size: 18px;
+    }
+
+    #mensajes {
+        padding: 30px;
+    }
+
+    .ataques {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+}
