@@ -176,7 +176,7 @@ function reiniciarEstadoLocal() {
 }
 
 function unirseAlJuego() {
-    fetch("http://localhost:8000/unirse")
+    fetch("https://mokepon-ds9b.onrender.com/unirse")
         .then(res => res.text())
         .then(id => {
             jugadorId = id;
@@ -215,7 +215,7 @@ function seleccionarMokepon(mascotaJugador) {
         return;
     }
 
-    fetch(`http://localhost:8000/mokepon/${jugadorId}`, {
+    fetch(`https://mokepon-ds9b.onrender.com/mokepon/${jugadorId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mokepon: mascotaJugador })
@@ -282,7 +282,7 @@ function secuenciaAtaque() {
 }
 
 function enviarAtaques() {
-    fetch(`http://localhost:8000/mokepon/${jugadorId}/ataques`, {
+    fetch(`https://mokepon-ds9b.onrender.com/mokepon/${jugadorId}/ataques`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ataques: ataqueJugador })
@@ -296,7 +296,7 @@ function enviarAtaques() {
 function obtenerAtaques() {
     if (!enemigoId) return;
 
-    fetch(`http://localhost:8000/mokepon/${enemigoId}/ataques`)
+    fetch(`https://mokepon-ds9b.onrender.com/mokepon/${enemigoId}/ataques`)
         .then(res => res.json())
         .then(({ ataques }) => {
             if (ataques.length === 5) {
@@ -407,7 +407,7 @@ function crearMensajeFinal(resultadoFinal) {
     sectionReiniciar.style.display = 'block'
 }
 function reiniciarJuego() {
-    fetch("http://localhost:8000/reiniciar", {
+    fetch("https://mokepon-ds9b.onrender.com/reiniciar", {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -464,7 +464,7 @@ function pintarCanvas() {
 
 
 function enviarPosicion(x, y) {
-    fetch(`http://localhost:8000/mokepon/${jugadorId}/posicion`, {
+    fetch(`https://mokepon-ds9b.onrender.com/mokepon/${jugadorId}/posicion`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ x, y })
