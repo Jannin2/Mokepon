@@ -344,6 +344,9 @@ function combate() {
     clearInterval(intervalo)
 
     for (let index = 0; index < ataqueJugador.length; index++) {
+        if (index >= 5) break;
+
+        
         if (ataqueJugador[index] === ataqueEnemigo[index]) {
             indexAmbosOponente(index, index)
             crearMensaje("EMPATE")
