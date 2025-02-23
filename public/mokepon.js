@@ -282,16 +282,19 @@ function secuenciaAtaque() {
 }
 
 function enviarAtaques() {
+    if (intervalo) clearInterval(intervalo);  // Detener intervalos previos
+
     fetch(`https://mokepon-ds9b.onrender.com/mokepon/${jugadorId}/ataques`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ataques: ataqueJugador })
     })
-        .then(() => {
-            intervalo = setInterval(obtenerAtaques, 100);
-        })
-        .catch(error => console.error("Error al enviar ataques:", error));
+    .then(() => {
+        intervalo = setInterval(obtenerAtaques, 100);  // Solo un intervalo activo
+    })
+    .catch(error => console.error("Error al enviar ataques:", error));
 }
+
 
 function obtenerAtaques() {
     if (!enemigoId) return;
@@ -341,40 +344,30 @@ function indexAmbosOponente(jugador, enemigo) {
 }
 
 function combate() {
-    clearInterval(intervalo)
+    clearInterval(intervalo);  // Detener el intervalo al iniciar el combate
 
-    for (let index = 0; index < ataqueJugador.length; index++) {
-        if (index >= 5) break;
-
-        
+    for (let index = 0; index < 5; index++) { // Asegurar solo 5 ataques
         if (ataqueJugador[index] === ataqueEnemigo[index]) {
-            indexAmbosOponente(index, index)
             crearMensaje("EMPATE")
-        } else if (ataqueJugador[index] === 'FUEGO' && ataqueEnemigo[index] === 'TIERRA') {
-            indexAmbosOponente(index, index)
+        } else if (
+            (ataqueJugador[index] === 'FUEGO' && ataqueEnemigo[index] === 'TIERRA') ||
+            (ataqueJugador[index] === 'AGUA' && ataqueEnemigo[index] === 'FUEGO') ||
+            (ataqueJugador[index] === 'TIERRA' && ataqueEnemigo[index] === 'AGUA')
+        ) {
             crearMensaje("GANASTE")
-            victoriasJugador++
-            spanVidasJugador.innerHTML = victoriasJugador
-        } else if (ataqueJugador[index] === 'AGUA' && ataqueEnemigo[index] === 'FUEGO') {
-            indexAmbosOponente(index, index)
-            crearMensaje("GANASTE")
-            victoriasJugador++
-            spanVidasJugador.innerHTML = victoriasJugador
-        } else if (ataqueJugador[index] === 'TIERRA' && ataqueEnemigo[index] === 'AGUA') {
-            indexAmbosOponente(index, index)
-            crearMensaje("GANASTE")
-            victoriasJugador++
-            spanVidasJugador.innerHTML = victoriasJugador
+            if (victoriasJugador < 5) victoriasJugador++;
+            spanVidasJugador.innerHTML = victoriasJugador;
         } else {
-            indexAmbosOponente(index, index)
             crearMensaje("PERDISTE")
-            victoriasEnemigo++
-            spanVidasEnemigo.innerHTML = victoriasEnemigo
+            if (victoriasEnemigo < 5) victoriasEnemigo++;
+            spanVidasEnemigo.innerHTML = victoriasEnemigo;
         }
     }
 
-    revisarVidas()
+    revisarVidas();
+    clearInterval(intervalo); // Detener definitivamente tras la pelea
 }
+
 
 function revisarVidas() {
     if (victoriasJugador === victoriasEnemigo) {
@@ -409,28 +402,27 @@ function crearMensajeFinal(resultadoFinal) {
 
     sectionReiniciar.style.display = 'block'
 }
-function reiniciarJuego() {
-    fetch("https://mokepon-ds9b.onrender.com/reiniciar", {
-        method: "post",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(function (res) {
-            if (res.ok) {
-                console.log("Juego reiniciado en el servidor");
-                location.reload(); // Recargar la página después de reiniciar el juego
-            } else {
-                console.error("Error al reiniciar el juego:", res.statusText);
-            }
-        })
-        .catch(function (error) {
-            console.error("Error al reiniciar el juego:", error);
-        });
-}
+
 
 function aleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
+}
+function reiniciarJuego() {
+    clearInterval(intervalo);  // Detener cualquier intervalo pendiente
+    fetch("https://mokepon-ds9b.onrender.com/reiniciar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" }
+    })
+    .then((res) => {
+        if (res.ok) {
+            reiniciarEstadoLocal();
+            console.log("Juego reiniciado en el servidor");
+            location.reload();
+        } else {
+            console.error("Error al reiniciar el juego:", res.statusText);
+        }
+    })
+    .catch((error) => console.error("Error al reiniciar el juego:", error));
 }
 
 
